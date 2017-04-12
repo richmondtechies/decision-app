@@ -1,0 +1,2 @@
+2017-04-12 07:12:42,259 [INFO] from play.api.Play in ForkJoinPool-1-worker-1 - Application started (Dev)
+2017-04-12 07:24:51,767 [INFO] from play.api.Play in decision-app-impl-application-akka.actor.default-dispatcher-18 - Application started (Dev)

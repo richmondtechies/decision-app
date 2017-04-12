@@ -1,0 +1,31 @@
+[INFO] Scanning for projects...
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for com.capitalone.reactiveupdate:decision-app-impl:jar:1.0-SNAPSHOT
+[WARNING] 'dependencies.dependency.(groupId:artifactId:type:classifier)' must be unique: com.typesafe.conductr:${conductr.lib.name}:jar -> duplicate declaration of version (?) @ com.capitalone.reactiveupdate:decision-app-impl:[unknown-version], /Users/awg049/venkatesh_kyama/workspaces/Code/lagom/mavenversion/decision-app-application/decision-app-impl/pom.xml, line 46, column 21
+[WARNING] 
+[WARNING] It is highly recommended to fix these problems because they threaten the stability of your build.
+[WARNING] 
+[WARNING] For this reason, future Maven versions might no longer support building such malformed projects.
+[WARNING] 
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO] 
+[INFO] decision-app-application
+[INFO] hello-api
+[INFO] hello-impl
+[INFO] stream-api
+[INFO] stream-impl
+[INFO] integration-test
+[INFO] cassandra-config
+[INFO] decision-app-api
+[INFO] decision-app-impl
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building decision-app-application 1.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- lagom-maven-plugin:1.2.0:runAll (default-cli) @ decision-app-application ---
+[INFO] Starting Kafka
+[INFO] Starting Cassandra
+.[INFO] Did not find Netty's native epoll transport in the classpath, defaulting to NIO.
+...
