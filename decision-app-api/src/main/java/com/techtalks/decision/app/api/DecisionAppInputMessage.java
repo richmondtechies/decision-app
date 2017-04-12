@@ -15,44 +15,53 @@ import javax.annotation.concurrent.Immutable;
 @JsonDeserialize
 public final class DecisionAppInputMessage {
 
-    public final String applicationId;
     public final String name;
+    public final String ssn;
     public final String income;
-    public final String ackId;
+    public final String dob;
 
 
 
     @JsonCreator
-    public DecisionAppInputMessage(String applicationId, String sorId, String accountId, String income, String ackId ) {
-        this.applicationId = Preconditions.checkNotNull(applicationId, "ApplicationId should not be null");
-        this.name = Preconditions.checkNotNull(applicationId, "name  should not be null");
-        this.income = Preconditions.checkNotNull(applicationId, "income id should not be null");
-        this.ackId = ackId;
+    public DecisionAppInputMessage(String name, String ssn, String income, String dob) {
+        this.name = Preconditions.checkNotNull(name, "ApplicationId should not be null");
+        this.ssn = Preconditions.checkNotNull(ssn, "name  should not be null");
+        this.income = Preconditions.checkNotNull(income, "income id should not be null");
+        this.dob = Preconditions.checkNotNull(dob, "income id should not be null");
 
     }
+
 
     @Override
-    public boolean equals(@Nullable Object another) {
-        if (this == another)
-            return true;
-        return another instanceof DecisionAppInputMessage && equalTo((DecisionAppInputMessage) another);
-    }
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
-    private boolean equalTo(DecisionAppInputMessage another) {
-        return applicationId.equals(another.applicationId) &&
-                name.equals(another.name) && income.equals(another.income)
-                ;
+        DecisionAppInputMessage that = (DecisionAppInputMessage) o;
+
+        if (!name.equals(that.name)) return false;
+        if (!ssn.equals(that.ssn)) return false;
+        if (!income.equals(that.income)) return false;
+        return dob.equals(that.dob);
+
     }
 
     @Override
     public int hashCode() {
-        int h = 31;
-        h = h * 17 + applicationId.hashCode();
-        return h;
+        int result = name.hashCode();
+        result = 31 * result + ssn.hashCode();
+        result = 31 * result + income.hashCode();
+        result = 31 * result + dob.hashCode();
+        return result;
     }
 
     @Override
     public String toString() {
-        return ToStringBuilder.reflectionToString(this);
+        return "DecisionAppInputMessage{" +
+                "name='" + name + '\'' +
+                ", ssn='" + ssn + '\'' +
+                ", income='" + income + '\'' +
+                ", dob='" + dob + '\'' +
+                '}';
     }
 }
