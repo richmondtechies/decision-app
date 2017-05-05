@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit;
 import static akka.pattern.Patterns.ask;
 
 /**
- * Created by awg049 on 11/22/16.
+ * Created by tki214 on 11/22/16.
  */
 public class DecisionAPIServiceImpl  implements DecisionAPIService {
     private final ActorSystem actorSystem;

@@ -7,7 +7,7 @@ import com.lightbend.lagom.serialization.Jsonable;
 import javax.annotation.concurrent.Immutable;
 
 /**
- * Created by awg049 on 11/22/16.
+ * Created by tki214 on 11/22/16.
  */
 
 @SuppressWarnings("serial")

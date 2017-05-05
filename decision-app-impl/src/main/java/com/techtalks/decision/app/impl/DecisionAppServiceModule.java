@@ -5,7 +5,7 @@ import com.google.inject.AbstractModule;
 import com.lightbend.lagom.javadsl.server.ServiceGuiceSupport;
 
 /**
- * Created by awg049 on 11/22/16.
+ * Created by tki214 on 11/22/16.
  */
 public class DecisionAppServiceModule extends AbstractModule implements ServiceGuiceSupport {
     @Override

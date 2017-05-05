@@ -22,7 +22,7 @@ import java.util.concurrent.Executors;
 import static akka.pattern.Patterns.pipe;
 
 /**
- * Created by awg049 on 11/22/16.
+ * Created by tki214 on 11/22/16.
  */
 public class DecisionAppSagaActor extends AbstractPersistentActor {
     private static final Logger LOGGER = LoggerFactory.getLogger(DecisionAppSagaActor.class);
@@ -73,8 +73,6 @@ public class DecisionAppSagaActor extends AbstractPersistentActor {
                     persist(event, (e) -> {
                         this.state = new DecisionAppSagaState("Calling IDM", null, null, null);
 
-                        sender().
-                                tell(ackId, self());
                         IndividualDetailMsg individualDetailMsg = new IndividualDetailMsg("sample", "sample","sample");
 
                         ActorRef creditScoreActor = context().actorOf(RetrieveBureauDetailsActor.props());
@@ -87,8 +85,6 @@ public class DecisionAppSagaActor extends AbstractPersistentActor {
                     });
                 }).match(AckInputMsg.class, ackInputMsg->{
                     clientRef = sender();
-                    System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&"+state);
-
                     CompletableFuture<InitialAckForDecision> initialRequestAckCompletableFuture = CompletableFuture.completedFuture( new InitialAckForDecision(ackId, clientRef, this.state.getDecisionOutputMsg()));
                     pipe(FutureConverters.toScala(initialRequestAckCompletableFuture), context().dispatcher()).to(self());
 
@@ -117,12 +113,15 @@ public class DecisionAppSagaActor extends AbstractPersistentActor {
                     });
                 }).match(DecisionOutputMsg.class, decisionOutputMsg->{
                     DecisionUpdateEvent decisionUpdateEvent = new DecisionUpdateEvent(decisionOutputMsg);
+                    System.out.println("Decision from FinalizeDecisonActor===>" + decisionOutputMsg.getDecisionValue());
                     persist(decisionUpdateEvent, (e) -> {
                         this.state.updateDecisionOutputMsg(decisionOutputMsg);
-                        System.out.println("Decision123456===>" + decisionOutputMsg.getDecisionValue());
+                        System.out.println("Decision from FinalizeDecisonActor===>" + decisionOutputMsg.getDecisionValue());
+                        //clientRef.tell(decisionOutputMsg.getDecisionValue()+","+ackId,self());
                         context().system().eventStream().publish(e);
                         saveSnapshot(this.state);
                     });
+                    clientRef.tell(decisionOutputMsg.getDecisionValue()+","+ackId,self());
                     getContext().stop(self());
 
             }).match(InitialAckForDecision.class, initialAckForDecision-> {
