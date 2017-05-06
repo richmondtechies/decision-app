@@ -73,7 +73,8 @@ public class DecisionAppSagaActor extends AbstractPersistentActor {
                     persist(event, (e) -> {
                         this.state = new DecisionAppSagaState("Calling IDM", null, null, null);
 
-                        IndividualDetailMsg individualDetailMsg = new IndividualDetailMsg("sample", "sample","sample");
+                        //change it..
+                        IndividualDetailMsg individualDetailMsg = new IndividualDetailMsg(event.decisionAppInputMessage.ssn, event.decisionAppInputMessage.dob,event.decisionAppInputMessage.name);
 
                         ActorRef creditScoreActor = context().actorOf(RetrieveBureauDetailsActor.props());
                         creditScoreActor.tell(individualDetailMsg, self());

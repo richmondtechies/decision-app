@@ -34,7 +34,7 @@ public interface DecisionAPIService extends Service {
   default Descriptor descriptor() {
     // @formatter:off
     return named("updateAISRegistry").withCalls(
-        pathCall("/api/card/offer",  this::processRequest),
+        pathCall("/api/card/application",  this::processRequest),
         pathCall("/api/card/decision",  this::getDecision)
       ).withAutoAcl(true);
     // @formatter:on
